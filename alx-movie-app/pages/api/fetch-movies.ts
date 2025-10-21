@@ -1,14 +1,14 @@
 import { MoviesProps } from "@/interfaces";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(request: NextApiRequest, response: NextApiResponse) {
+export default async function handler (request: NextApiRequest, response: NextApiResponse)  {
 
   if (request.method === "POST") {
     const { year, page, genre } = request.body;
     const date = new Date();
-
     const resp = await fetch(
-      `https://moviesdatabase.p.rapidapi.com/titles?year=${year || date.getFullYear()
+      `https://moviesdatabase.p.rapidapi.com/titles?year=${
+        year || date.getFullYear()
       }&sort=year.decr&limit=12&page=${page}&${genre && `genre=${genre}`}`,
       {
         headers: {
@@ -30,5 +30,4 @@ export default async function handler(request: NextApiRequest, response: NextApi
     response.setHeader('Allow', ['POST']);
     response.status(405).end(`Method ${request.method} Not Allowed in here`);
   }
-
 };
